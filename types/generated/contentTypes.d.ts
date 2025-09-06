@@ -521,6 +521,7 @@ export interface ApiPlayerPlayer extends Struct.CollectionTypeSchema {
   };
   attributes: {
     bio: Schema.Attribute.Text;
+    cover: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -560,6 +561,7 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::team.team'> &
       Schema.Attribute.Private;
+    logo: Schema.Attribute.String;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
