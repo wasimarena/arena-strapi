@@ -25,16 +25,6 @@
       "required": true,
       "unique": false
     },
-    "teamId": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "unique": true
-    },
     "logo": {
       "type": "string",
       "pluginOptions": {
@@ -51,6 +41,15 @@
         }
       },
       "targetField": "name"
+    },
+    "teamId": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
     }
   }
 }

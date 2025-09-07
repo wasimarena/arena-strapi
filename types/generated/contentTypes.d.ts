@@ -550,6 +550,82 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDashboardDashboard extends Struct.SingleTypeSchema {
+  collectionName: 'dashboards';
+  info: {
+    displayName: 'Dashboard';
+    pluralName: 'dashboards';
+    singularName: 'dashboard';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    announcement: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::announcement.announcement'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    featured_finished_matches: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::match.match'
+    >;
+    featured_live_match: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::match.match'
+    >;
+    featured_scheduled_matches: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::match.match'
+    >;
+    featured_teams: Schema.Attribute.Relation<'oneToMany', 'api::team.team'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::dashboard.dashboard'
+    > &
+      Schema.Attribute.Private;
+    notification: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::notification.notification'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFeaturedFeatured extends Struct.SingleTypeSchema {
+  collectionName: 'featureds';
+  info: {
+    displayName: 'Featured';
+    pluralName: 'featureds';
+    singularName: 'featured';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::featured.featured'
+    > &
+      Schema.Attribute.Private;
+    matches: Schema.Attribute.Relation<'oneToMany', 'api::match.match'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -696,16 +772,8 @@ export interface ApiPlayerPlayer extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    playerId: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'playerId'> &
+    slug: Schema.Attribute.UID &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -759,9 +827,8 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    teamId: Schema.Attribute.String &
+    teamId: Schema.Attribute.UID &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1286,6 +1353,8 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'api::article.article': ApiArticleArticle;
+      'api::dashboard.dashboard': ApiDashboardDashboard;
+      'api::featured.featured': ApiFeaturedFeatured;
       'api::global.global': ApiGlobalGlobal;
       'api::match.match': ApiMatchMatch;
       'api::notification.notification': ApiNotificationNotification;

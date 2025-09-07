@@ -15,16 +15,6 @@
     }
   },
   "attributes": {
-    "playerId": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "unique": true
-    },
     "name": {
       "type": "string",
       "pluginOptions": {
@@ -69,8 +59,7 @@
         "i18n": {
           "localized": true
         }
-      },
-      "targetField": "playerId"
+      }
     }
   }
 }

@@ -1,0 +1,45 @@
+{
+  "kind": "singleType",
+  "collectionName": "dashboards",
+  "info": {
+    "singularName": "dashboard",
+    "pluralName": "dashboards",
+    "displayName": "Dashboard"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "featured_live_match": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::match.match"
+    },
+    "announcement": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::announcement.announcement"
+    },
+    "notification": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::notification.notification"
+    },
+    "featured_teams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::team.team"
+    },
+    "featured_scheduled_matches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::match.match"
+    },
+    "featured_finished_matches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::match.match"
+    }
+  }
+}
