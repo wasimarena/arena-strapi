@@ -45,6 +45,12 @@
     },
     "description": {
       "type": "text"
+    },
+    "coverImage": {
+      "type": "string"
+    },
+    "streamUrl": {
+      "type": "string"
     }
   }
 }
