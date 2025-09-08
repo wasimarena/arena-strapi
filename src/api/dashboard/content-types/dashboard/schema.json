@@ -13,7 +13,7 @@
   "attributes": {
     "featured_live_match": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::match.match"
     },
     "announcement": {

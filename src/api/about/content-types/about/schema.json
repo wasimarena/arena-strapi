@@ -37,6 +37,11 @@
         "shared.rich-text",
         "shared.slider"
       ]
+    },
+    "announcement": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::announcement.announcement"
     }
   }
 }
