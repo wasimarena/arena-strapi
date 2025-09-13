@@ -92,6 +92,36 @@
           "localized": true
         }
       }
+    },
+    "league": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::league.league",
+      "inversedBy": "matches"
+    },
+    "round": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "venue": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "referee": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
