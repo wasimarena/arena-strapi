@@ -695,6 +695,300 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiLeagueTeamLeagueTeam extends Struct.CollectionTypeSchema {
+  collectionName: 'league_teams';
+  info: {
+    description: 'Junction table for teams participating in leagues';
+    displayName: 'League Team';
+    pluralName: 'league-teams';
+    singularName: 'league-team';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    draws: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    form: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }>;
+    goalDifference: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    goalsAgainst: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    goalsFor: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    isCaptain: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    joinedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    lastUpdated: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    league: Schema.Attribute.Relation<'manyToOne', 'api::league.league'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::league-team.league-team'
+    >;
+    losses: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    matchesPlayed: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    notes: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    points: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    position: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['active', 'inactive', 'suspended', 'withdrawn']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'active'>;
+    team: Schema.Attribute.Relation<'manyToOne', 'api::team.team'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    winPercentage: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    wins: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+  };
+}
+
+export interface ApiLeagueLeague extends Struct.CollectionTypeSchema {
+  collectionName: 'leagues';
+  info: {
+    description: 'A sports league containing multiple teams and matches';
+    displayName: 'League';
+    pluralName: 'leagues';
+    singularName: 'league';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    banner: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 3;
+      }> &
+      Schema.Attribute.DefaultTo<'USD'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    endDate: Schema.Attribute.DateTime &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    format: Schema.Attribute.Enumeration<
+      [
+        'single_elimination',
+        'double_elimination',
+        'round_robin',
+        'swiss',
+        'group_stage',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'single_elimination'>;
+    isOnline: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::league.league'>;
+    location: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logo: Schema.Attribute.Media<'images'>;
+    matches: Schema.Attribute.Relation<'oneToMany', 'api::match.match'>;
+    maxTeams: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 2;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<16>;
+    minTeams: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 2;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<4>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    prizePool: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    registrationEndDate: Schema.Attribute.DateTime &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    registrationStartDate: Schema.Attribute.DateTime &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    rules: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID<'name'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    socialLinks: Schema.Attribute.JSON;
+    startDate: Schema.Attribute.DateTime &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    status: Schema.Attribute.Enumeration<
+      [
+        'upcoming',
+        'registration_open',
+        'registration_closed',
+        'active',
+        'completed',
+        'cancelled',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'upcoming'>;
+    streamUrl: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
   collectionName: 'matches';
   info: {
@@ -732,6 +1026,7 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    league: Schema.Attribute.Relation<'manyToOne', 'api::league.league'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::match.match'>;
     matchid: Schema.Attribute.UID & Schema.Attribute.Required;
@@ -745,6 +1040,18 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
       }> &
       Schema.Attribute.DefaultTo<'scheduled'>;
     publishedAt: Schema.Attribute.DateTime;
+    referee: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    round: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     startTime: Schema.Attribute.DateTime &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -768,6 +1075,12 @@ export interface ApiMatchMatch extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    venue: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
   };
 }
 
@@ -932,9 +1245,39 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    city: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    country: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    foundedYear: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 2030;
+          min: 1800;
+        },
+        number
+      >;
+    leagueTeams: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::league-team.league-team'
+    >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::team.team'>;
     logo: Schema.Attribute.String &
@@ -957,6 +1300,7 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    socialLinks: Schema.Attribute.JSON;
     teamId: Schema.Attribute.UID &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -967,6 +1311,7 @@ export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    website: Schema.Attribute.String;
   };
 }
 
@@ -1486,6 +1831,8 @@ declare module '@strapi/strapi' {
       'api::dashboard.dashboard': ApiDashboardDashboard;
       'api::featured.featured': ApiFeaturedFeatured;
       'api::global.global': ApiGlobalGlobal;
+      'api::league-team.league-team': ApiLeagueTeamLeagueTeam;
+      'api::league.league': ApiLeagueLeague;
       'api::match.match': ApiMatchMatch;
       'api::notification.notification': ApiNotificationNotification;
       'api::player.player': ApiPlayerPlayer;

@@ -1,0 +1,123 @@
+{
+  "kind": "collectionType",
+  "collectionName": "league_teams",
+  "info": {
+    "singularName": "league-team",
+    "pluralName": "league-teams",
+    "displayName": "League Team",
+    "description": "Junction table for teams participating in leagues"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "team": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team.team"
+    },
+    "league": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::league.league"
+    },
+    "joinedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "required": true,
+      "default": "active",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "withdrawn"
+      ]
+    },
+    "isCaptain": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "position": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "points": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "matchesPlayed": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "wins": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "losses": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "draws": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "goalsFor": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "goalsAgainst": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "goalDifference": {
+      "type": "integer",
+      "required": true,
+      "default": 0
+    },
+    "winPercentage": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0,
+      "max": 100
+    },
+    "form": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "lastUpdated": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

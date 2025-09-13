@@ -50,6 +50,47 @@
         }
       },
       "required": true
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "foundedYear": {
+      "type": "integer",
+      "min": 1800,
+      "max": 2030
+    },
+    "country": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "city": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "website": {
+      "type": "string"
+    },
+    "socialLinks": {
+      "type": "json"
+    },
+    "leagueTeams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::league-team.league-team",
+      "mappedBy": "team"
     }
   }
 }

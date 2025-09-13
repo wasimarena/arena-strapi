@@ -1,0 +1,188 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leagues",
+  "info": {
+    "singularName": "league",
+    "pluralName": "leagues",
+    "displayName": "League",
+    "description": "A sports league containing multiple teams and matches"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "startDate": {
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "endDate": {
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "registrationStartDate": {
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "registrationEndDate": {
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "status": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": "upcoming",
+      "enum": [
+        "upcoming",
+        "registration_open",
+        "registration_closed",
+        "active",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "maxTeams": {
+      "type": "integer",
+      "default": 16,
+      "min": 2
+    },
+    "minTeams": {
+      "type": "integer",
+      "default": 4,
+      "min": 2
+    },
+    "format": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": "single_elimination",
+      "enum": [
+        "single_elimination",
+        "double_elimination",
+        "round_robin",
+        "swiss",
+        "group_stage"
+      ]
+    },
+    "prizePool": {
+      "type": "decimal",
+      "min": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD",
+      "maxLength": 3
+    },
+    "rules": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "location": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "isOnline": {
+      "type": "boolean",
+      "default": true
+    },
+    "streamUrl": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "socialLinks": {
+      "type": "json"
+    },
+    "matches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::match.match",
+      "mappedBy": "league"
+    }
+  }
+}
